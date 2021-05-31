@@ -8,19 +8,27 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^3.5.0",
+    "@react-native-picker/picker": "^1.16.1",
     "expo": "~41.0.1",
     "expo-app-loading": "^1.0.3",
     "expo-status-bar": "~1.0.4",
+    "formik": "^2.2.8",
+    "moment": "^2.29.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-countdown-circle-timer": "^2.5.3",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-linear-gradient": "^2.5.6",
     "react-native-reanimated": "~2.1.0",
     "react-native-screens": "^3.2.0",
+    "react-native-svg": "12.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
     "react-navigation-drawer": "^2.7.1",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

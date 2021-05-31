@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import Navigator from './routes/drawer';
+import Navigator from './routes/mainStack'
 
 const getFonts = () => Font.loadAsync({
   'nunito-regular': require('./assets/Nunito-Regular.ttf'),
@@ -14,7 +14,7 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <Navigator/>
+      <Navigator/>  
     )
   } else {
     return (
@@ -26,4 +26,3 @@ export default function App() {
     )
   }
 }
-

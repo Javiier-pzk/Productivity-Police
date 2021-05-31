@@ -9,7 +9,11 @@ const screens = {
         navigationOptions: ({ navigation }) => {
             return {
                 headerTitle: () => 
-                    <Header navigation = { navigation } title = 'Productivity Police' />
+                    <Header navigation = { navigation } 
+                        title = 'Home' 
+                        iconTitle = 'home' 
+                        marginHorizontal = {105}
+                    />
             }
         }
     }
@@ -19,7 +23,9 @@ const HomeStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
         headerTintColor: '#fff',
         headerStyle: {
-            backgroundColor: '#708090'},
+            backgroundColor: '#708090'
+        },
+        headerLeft: () => null       
     }
 });
 

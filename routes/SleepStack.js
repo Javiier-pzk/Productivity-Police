@@ -10,7 +10,12 @@ const screens = {
         navigationOptions: ({ navigation }) => {
             return {
                 headerTitle: () => 
-                    <Header navigation = { navigation } title = 'Sleep' />
+                    <Header 
+                        navigation = { navigation } 
+                        title = 'Sleep' 
+                        iconTitle = 'bed'
+                        marginHorizontal = {105}
+                    />
             }
         }
     }
@@ -20,6 +25,7 @@ const HomeSleepStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
         headerTintColor: '#fff',
         headerStyle: {backgroundColor: '#483d8b'},
+        headerLeft: () => null
     }
 });
 
