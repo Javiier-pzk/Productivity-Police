@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
   View,
@@ -8,10 +9,18 @@ import {
   Dimensions,
   StatusBar,
 } from "react-native";
+import * as Authentication from '../../api/auth';
+import { CommonActions, StackActions } from '@react-navigation/native';
 
 export default function SplashPage({ navigation }) {
-
   
+  useEffect(() => {
+      return Authentication.setOnAuthStateChanged(
+        (user) => navigation.navigate('Home'),
+        (user) => navigation.navigate('Splash Page'),
+      );
+  }, []);
+
     return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -33,7 +42,7 @@ export default function SplashPage({ navigation }) {
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
-            onPress={() => navigation.navigate("Sign In Page") }
+            onPress={() => navigation.navigate('Sign In Page') }
           >
             <Text style={styles.signInText}>Sign In</Text>
           </TouchableOpacity>

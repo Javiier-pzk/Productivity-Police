@@ -8,22 +8,23 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   View,
-  KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Users from './dataBase';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {CommonActions, StackActions} from '@react-navigation/native';
+import * as Authentication from '../../api/auth';
 
 export default function SignUpPage({ navigation }) {
-
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
 
   const validationSchema = yup.object({
     Username: yup.string().required().min(4).max(20),
+    Email: yup.string().required().email("Email is invalid"),
     Password: yup
       .string()
       .required()
@@ -35,19 +36,27 @@ export default function SignUpPage({ navigation }) {
       ),
     ConfirmPassword: yup
       .string()
-      .required()
+      .required("Confirm Password is a required field")
       .oneOf([yup.ref("Password"), null], "Passwords must match"),
   });
 
-  const [users, setUsers] = useState(Users)
+  const emailValidator = yup.string().required().email();
 
-  const onSignUp = (obj) => {
-    setUsers((prev) => [obj, ...prev]);
-    Alert.alert('Success!', 'Your account has been created', [{
-      text: 'Ok',
-      onPress: () => navigation.navigate('Home')
-    }]);
-  }
+  const onSignUp = (values) => {
+    Keyboard.dismiss();
+
+    Authentication.createAccount(
+      values,
+      (user) => navigation.dispatch(CommonActions.reset({
+        index: 0,
+        routes: [{
+          name: "Home",
+          params: { Username: user.displayName }
+        }]
+      })),
+      (error) => Alert.alert(error.message)
+    )
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -58,13 +67,12 @@ export default function SignUpPage({ navigation }) {
         </View>
         <View style={styles.footer}>
           <Formik
-            initialValues={{ Username: "", Password: "" }}
+            initialValues={{ Username: "", Email: "", Password: "" }}
             validationSchema={validationSchema}
-            onSubmit={(values) => onSignUp(values) }
+            onSubmit={(values) => onSignUp(values)}
           >
             {(props) => (
-              <KeyboardAvoidingView
-                behavior = {Platform.OS === 'ios' ? 'padding': 'height'}>
+              <KeyboardAwareScrollView extraHeight={50} enableOnAndroid>
                 <Text style={styles.username}> Username </Text>
                 <View style={styles.action}>
                   <FontAwesome name="user-o" color="#05375a" size={20} />
@@ -74,7 +82,7 @@ export default function SignUpPage({ navigation }) {
                     value={props.values.Username}
                     onChangeText={props.handleChange("Username")}
                     onBlur={props.handleBlur("Username")}
-                    autoCorrect = {false}
+                    autoCorrect={false}
                   />
 
                   {props.values.Username.length >= 4 &&
@@ -87,6 +95,29 @@ export default function SignUpPage({ navigation }) {
                   {props.touched.Username && props.errors.Username}
                 </Text>
 
+                <Text style={styles.email}> Email </Text>
+                <View style={styles.action}>
+                  <FontAwesome name="at" color="#05375a" size={20} />
+                  <TextInput
+                    placeholder="Your Email"
+                    style={styles.textInput}
+                    value={props.values.Email}
+                    onChangeText={props.handleChange("Email")}
+                    onBlur={props.handleBlur("Email")}
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                  />
+
+                  {emailValidator.isValidSync(props.values.Email) ? (
+                    <Feather name="check-circle" color="green" size={20} />
+                  ) : null}
+                </View>
+
+                <Text style={styles.errorMsg}>
+                  {props.touched.Email && props.errors.Email}
+                </Text>
+
                 <Text style={styles.password}> Password </Text>
                 <View style={styles.action}>
                   <FontAwesome name="lock" color="#05375a" size={25} />
@@ -97,10 +128,12 @@ export default function SignUpPage({ navigation }) {
                     value={props.values.Password}
                     onChangeText={props.handleChange("Password")}
                     onBlur={props.handleBlur("Password")}
-                    autoCorrect = {false}
+                    autoCorrect={false}
                   />
 
-                  <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
+                  <TouchableOpacity
+                    onPress={() => setSecureTextEntry(!secureTextEntry)}
+                  >
                     {secureTextEntry ? (
                       <Feather name="eye-off" color="grey" size={20} />
                     ) : (
@@ -123,10 +156,14 @@ export default function SignUpPage({ navigation }) {
                     value={props.values.ConfirmPassword}
                     onChangeText={props.handleChange("ConfirmPassword")}
                     onBlur={props.handleBlur("ConfirmPassword")}
-                    autoCorrect = {false}
+                    autoCorrect={false}
                   />
 
-                  <TouchableOpacity onPress={() => setConfirmSecureTextEntry(!confirmSecureTextEntry)}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      setConfirmSecureTextEntry(!confirmSecureTextEntry)
+                    }
+                  >
                     {confirmSecureTextEntry ? (
                       <Feather name="eye-off" color="grey" size={20} />
                     ) : (
@@ -148,7 +185,30 @@ export default function SignUpPage({ navigation }) {
                 >
                   <Text style={styles.signUpText}> Sign Up </Text>
                 </TouchableOpacity>
-              </KeyboardAvoidingView>
+
+                <View style = {styles.signInInstead}>
+                  <Text style = {styles.endText}> Already have an account? </Text>
+                  <TouchableOpacity onPress = {() => navigation.navigate('Sign In Page')}>
+                    <View style = {styles.returnToSignIn}>
+                      <Text style = {styles.returnToSignInText}> Sign In Instead! </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+              <View style = {styles.tnc}>
+                <Text style = {styles.endText}> By signing up, you confirm that you accept our </Text>
+                <View style = {{flexDirection: 'row'}}>
+                  <TouchableOpacity onPress = {() => {}}>
+                    <Text style = {styles.termsOfService}> Terms of Service </Text>
+                  </TouchableOpacity>
+                  <Text style = {styles.endText}> and </Text>
+                  <TouchableOpacity onPress = {() => {}}>
+                    <Text style = {styles.termsOfService}> Privacy Policy </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              </KeyboardAwareScrollView>
             )}
           </Formik>
         </View>
@@ -184,6 +244,11 @@ const styles = StyleSheet.create({
   username: {
     color: "#05375a",
     fontSize: 18,
+  },
+  email: {
+    color: "#05375a",
+    fontSize: 18,
+    marginTop: 5,
   },
   password: {
     marginTop: 5,
@@ -236,4 +301,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#4682b4",
   },
+  signInInstead: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  endText: {
+    fontSize: 14,
+    color: '#777777'
+  },
+  returnToSignIn: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#333',
+  },
+  returnToSignInText: {
+    fontSize: 14,
+    color: '#333'
+  },
+  tnc: {
+    marginTop: 10,
+    alignItems: 'center'
+  },
+  termsOfService: {
+    fontSize: 14,
+    color: '#cd5c5c'
+  }
 });

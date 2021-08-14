@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import Navigator from './routes/mainStack'
+import Navigator from './routes/signInPageStack';
+import store from './redux/configureStore';
+import {Provider} from 'react-redux';
 
 const getFonts = () => Font.loadAsync({
   'nunito-regular': require('./assets/Nunito-Regular.ttf'),
-  'nunito-bold': require('./assets/Nunito-Bold.ttf')
+  'nunito-bold': require('./assets/Nunito-Bold.ttf'),
+  'moonglade-bold': require('./assets/MoongladeBold.ttf'),
+  'moonglade-light': require('./assets/Moonglade-Light.ttf'),
+  'moonglade-regular': require('./assets/Moonglade-Regular.ttf')
 })
 
 export default function App() {
@@ -14,7 +18,9 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <Navigator/>  
+      <Provider store = {store}>
+       <Navigator/>
+      </Provider>
     )
   } else {
     return (

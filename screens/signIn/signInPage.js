@@ -7,20 +7,27 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   View,
-  Alert
+  Alert,
+  Modal,
+  SafeAreaView,
+  ImageBackground
 } from "react-native";
-import { FontAwesome, Feather } from "@expo/vector-icons";
+import { FontAwesome, Feather } from  "@expo/vector-icons";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Users from './dataBase';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { CommonActions } from '@react-navigation/native';
+import * as Authentication from '../../api/auth';
 
-export default function SignUpPage({ navigation }) {
+export default function SignInPage({ navigation }) {  
   
-    const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
 
-  const validationSchema = yup.object({
-    Username: yup.string().required().min(4).max(20),
+  const validationSchema = yup.object().shape({
+    Email: yup.string().required().email('Email is invalid'),
     Password: yup
       .string()
       .required()
@@ -32,17 +39,27 @@ export default function SignUpPage({ navigation }) {
       ),
   });
 
-  const onSignIn = (obj) => {
+  const emailValidator = yup.string().required().email();
 
-    const foundUser = Users.filter( item => item.Username === obj.Username && item.Password == obj.Password);
-    if ( foundUser.length === 0 ) {
-        Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-            {text: 'Dismiss'}
-        ]);
-    } else {
-        navigation.navigate('Home');
-    }
-}
+  const onSignIn = (values) => {
+    Keyboard.dismiss();
+
+    Authentication.signIn(
+      values,
+      (user) => navigation.dispatch(CommonActions.reset({
+        index: 0,
+        routes: [{
+          name: "Home",
+          params: { Username: user.displayName }
+        }]
+      })),
+      (error) => Alert.alert('Invalid User!', 
+        'Email or Password is incorrect. Please ensure you have an existing account', [
+        {text: 'Dismiss'}
+      ])
+    );
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -52,32 +69,34 @@ export default function SignUpPage({ navigation }) {
         </View>
         <View style={styles.footer}>
           <Formik
-            initialValues={{ Username: "", Password: "" }}
+            initialValues={{ Email: "", Password: "" }}
             validationSchema={validationSchema}
             onSubmit={(values) => onSignIn(values) }
           >
             {(props) => (
-              <View>
-                <Text style={styles.username}> Username </Text>
+              <KeyboardAwareScrollView extraHeight = {50} enableOnAndroid>
+                <Text style={styles.email}> Email </Text>
                 <View style={styles.action}>
-                  <FontAwesome name="user-o" color="#05375a" size={20} />
+                  <FontAwesome name='at' color="#05375a" size={20} />
                   <TextInput
-                    placeholder="Your Username"
+                    placeholder="Your Email"
                     style={styles.textInput}
-                    value={props.values.Username}
-                    onChangeText={props.handleChange("Username")}
-                    onBlur={props.handleBlur("Username")}
-                    autoCorrect = {false} 
+                    value={props.values.Email}
+                    onChangeText={props.handleChange("Email")}
+                    onBlur={props.handleBlur("Email")}
+                    autoCorrect = {false}
+                    autoCapitalize = 'none'
+                    keyboardType = 'email-address' 
                   />
 
-                  {props.values.Username.length >= 4 &&
-                  props.values.Username.length <= 20 ? (
+                  { emailValidator.isValidSync(props.values.Email)
+                  ? (
                     <Feather name="check-circle" color="green" size={20} />
                   ) : null}
                 </View>
 
                 <Text style={styles.errorMsg}>
-                  {props.touched.Username && props.errors.Username}
+                  {props.touched.Email && props.errors.Email}
                 </Text>
 
                 <Text style={styles.password}> Password </Text>
@@ -114,14 +133,87 @@ export default function SignUpPage({ navigation }) {
                 >
                   <Text style={styles.signInText}> Sign In </Text>
                 </TouchableOpacity>
-              </View>
+
+                <View style = {styles.signUpInstead}>
+                  <Text style = {styles.endText}> Don't have an account? </Text>
+                  <TouchableOpacity onPress = {() => navigation.navigate('Sign Up Page')}>
+                    <View style = {styles.registerHere}>
+                      <Text style = {styles.registerHereText}> Register here! </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <Modal visible = {modalOpen} animationType = 'slide'>
+                    <StatusBar barStyle = 'dark-content' />
+                    <TouchableWithoutFeedback onPress = {Keyboard.dismiss}> 
+                    <SafeAreaView style = {styles.modal}>
+                      <View style = {styles.modalContent}>
+                        <View style = {styles.imageView}>
+                          <View style = {styles.ImageBackground}>
+                            <ImageBackground
+                              source = {require("../../assets/police.png")}
+                              style = {{height:180, width:180}}
+                              imageStyle= {{borderRadius: 15}}
+                            />
+                          </View>
+                        </View>
+                        <Text style = {styles.resetPassword}> Reset Password </Text>
+                        <Text style = {styles.resetPasswordSubText}> Enter the email address of your account </Text>
+                        <View style={styles.action}>
+                          <FontAwesome name='at' color="#05375a" size={20} />
+                          <TextInput
+                            placeholderTextColor = '#333'
+                            placeholder="Your Email"
+                            style={styles.textInput}
+                            value={props.values.Email}
+                            onChangeText={props.handleChange("Email")}
+                            onBlur={props.handleBlur("Email")}
+                            autoCorrect = {false}
+                            autoCapitalize = 'none'
+                            keyboardType = 'email-address' 
+                          />
+
+                          { emailValidator.isValidSync(props.values.Email)
+                          ? (
+                            <Feather name="check-circle" color="green" size={20} />
+                          ) : null}
+                        </View>
+
+                        <Text style={styles.errorMsg}>
+                          {props.touched.Email && props.errors.Email}
+                        </Text>
+
+                          <TouchableOpacity style = {styles.signIn} onPress = { () => {
+                            Authentication.sendPasswordResetEmail(props.values.Email,
+                            () => Alert.alert('A password reset email has been sent','',
+                             [{text: 'Ok', onPress: () => setModalOpen(false)}]),
+                            (error) => Alert.alert(error.message))
+                          }}>
+                            <Text style = {styles.signInText}> Send a password reset link </Text>
+                          </TouchableOpacity>
+
+                          <TouchableOpacity style = {styles.cancelButton} onPress = {() => setModalOpen(false)}>
+                            <Text style = {styles.cancelButtonText}> Cancel </Text>
+                          </TouchableOpacity>
+                        </View>
+                    </SafeAreaView>
+                    </TouchableWithoutFeedback>
+                </Modal>
+                
+                
+                <TouchableOpacity style = {styles.forgotPassword} onPress = {() => setModalOpen(true)}>
+                  <FontAwesome name = 'key' size = {20} />
+                  <Text style = {styles.forgotPasswordText}> Forgot Password? </Text>
+                </TouchableOpacity>
+                
+              </KeyboardAwareScrollView>
             )}
           </Formik>
         </View>
       </View>
     </TouchableWithoutFeedback>
   );
-}
+}           
 
 const styles = StyleSheet.create({
   container: {
@@ -147,7 +239,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
   },
-  username: {
+  email: {
     color: "#05375a",
     fontSize: 18,
   },
@@ -196,5 +288,78 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff",
+  },
+  signUpInstead: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  endText: {
+    fontSize: 14,
+    color: '#777777'
+  },
+  registerHere: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#333',
+  },
+  registerHereText: {
+    fontSize: 14,
+    color: '#333'
+  },
+  modal: {
+    marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    flex: 1,
+  },
+  modalContent: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  imageView: {
+    marginTop: 20,
+    alignItems:'center',
+    marginBottom: 50
+  },
+  ImageBackground: {
+    height:100,
+    width: 100,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  resetPassword: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    alignSelf: 'center'
+  },
+  resetPasswordSubText: {
+    fontSize: 18,
+    marginTop: 5,
+    alignSelf: 'center',
+    marginBottom: 20
+  },
+  forgotPassword: {
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'center'
+  },
+  forgotPasswordText: {
+    marginLeft: 10,
+    fontSize: 18,
+    color: '#cd5c5c',
+  },
+  cancelButton: {
+    width: "100%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderColor: "#4682b4",
+    borderWidth: 1,
+    marginTop: 15,
+  },
+  cancelButtonText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "crimson",
   },
 });

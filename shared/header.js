@@ -1,49 +1,14 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, Text} from 'react-native';
 
-export default function Header({ navigation, title, iconTitle, marginHorizontal }) {
+export default function Header({title}) {
 
     return (
-        <View style = {styles.container}>
-            <MaterialIcons
-                style = {styles.icons}
-                name = 'menu'
-                size = { 28 }
-                onPress = { () => navigation.openDrawer() }
-            />
-            <View style = {[styles.headerTitle, {
-                marginHorizontal: marginHorizontal
-            }]}>
-                <Ionicons
-                    color = '#fff'
-                    size = {28}
-                    name = {iconTitle}
-                />
-                <Text style = {styles.headerText}> {title} </Text>
-                <View style = {{marginLeft:30}}></View>
-            </View>
-        </View>
-            
-        
+        <Text style = {styles.headerText}> {title} </Text>    
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    icons: {
-        color: '#fff',
-        marginLeft: 5    
-    },
-    headerTitle: {
-        flexDirection: 'row',
-        alignItems: 'center',
-       
-    },
     headerText: {
         color: '#fff',
         fontWeight: 'bold',

@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Home from '../screens/Home';
 import Header from '../shared/header';
 import React from 'react';
+import {MaterialIcons} from '@expo/vector-icons'
 
 const screens = {
     Home: {
@@ -9,10 +10,16 @@ const screens = {
         navigationOptions: ({ navigation }) => {
             return {
                 headerTitle: () => 
-                    <Header navigation = { navigation } 
-                        title = 'Home' 
-                        iconTitle = 'home' 
-                        marginHorizontal = {105}
+                    <Header title = 'Home' />,
+                headerLeft: () => 
+                    <MaterialIcons 
+                        style = {{marginLeft: 15}}
+                        name = 'menu'
+                        size = { 28 }
+                        color = '#fff'
+                        onPress = { () => { 
+                            navigation.openDrawer();
+                        }}
                     />
             }
         }
@@ -23,7 +30,7 @@ const HomeStack = createStackNavigator(screens, {
     defaultNavigationOptions: {
         headerTintColor: '#fff',
         headerStyle: {
-            backgroundColor: '#708090'
+            backgroundColor: '#4682b4'
         },
         headerLeft: () => null       
     }
