@@ -17,6 +17,9 @@ Features:
 - [x] User login / Sign up Authentication
 - [x] Push Notifcations
 
+![PpDrawerGithub](https://user-images.githubusercontent.com/85099754/134702201-a1458a39-1582-445d-abd0-83e1369f3735.gif)
+
+
 ## Requirements
 
 Prerequisites: 
@@ -36,5 +39,5 @@ You should see a `ProductivityPolice-prototype.tar.gz` file in your `Downloads` 
      <img width="261" alt="Screenshot 2021-09-20 at 1 20 01 PM" src="https://user-images.githubusercontent.com/85099754/133959932-3e55004a-f6c9-4013-8d2c-a3aedc016a85.png">
 
 ## Usage
-Refer to the [user guide]() to find out more about how to use each feature of Productivity Police.
+Refer to the [user guide](https://github.com/Javiier-pzk/Productivity-Police/blob/master/docs/README.md) to find out more about how to use each feature of Productivity Police.
 
