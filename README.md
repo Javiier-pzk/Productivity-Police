@@ -47,6 +47,7 @@ You should see a `ProductivityPolice-prototype.tar.gz` file in your `Downloads` 
 [Expo Image Picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/) <br/>
 [Expo Vector Icons](https://docs.expo.dev/guides/icons/) <br/>
 [Expo Audio](https://docs.expo.dev/versions/latest/sdk/audio/) <br/>
+[Expo Linear Gradient](https://docs.expo.dev/versions/latest/sdk/linear-gradient/) <br/>
 [Firebase Auth](https://firebase.google.com/docs/reference/js/auth) <br/>
 [Firebase Database](https://firebase.google.com/docs/reference/js/database) <br/>
 [Formik](https://formik.org/docs/overview) and [yup](https://www.npmjs.com/package/yup) <br/>
