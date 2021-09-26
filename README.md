@@ -42,7 +42,7 @@ You should see a `ProductivityPolice-prototype.tar.gz` file in your `Downloads` 
 [React Native](https://reactnative.dev) and [Expo](https://expo.dev) - Frontend Integration <br/>
 [FireBase](https://firebase.google.com) - Backend Database and Authentication
 
-### Main packages and libraries Used
+### Main packages and libraries used
 [Expo Notifications](https://docs.expo.dev/versions/latest/sdk/notifications/) <br/>
 [Expo Image Picker](https://docs.expo.dev/versions/latest/sdk/imagepicker/) <br/>
 [Expo Vector Icons](https://docs.expo.dev/guides/icons/) <br/>
@@ -50,6 +50,7 @@ You should see a `ProductivityPolice-prototype.tar.gz` file in your `Downloads` 
 [Firebase Auth](https://firebase.google.com/docs/reference/js/auth) <br/>
 [Firebase Database](https://firebase.google.com/docs/reference/js/database) <br/>
 [Formik](https://formik.org/docs/overview) and [yup](https://www.npmjs.com/package/yup) <br/>
+[Moment.js](https://momentjs.com/docs/) <br/>
 [React Redux](https://react-redux.js.org/api/hooks) and [Redux Toolkit](https://redux-toolkit.js.org/usage/usage-guide) <br/>
 React Navigtion [v4](https://reactnavigation.org/docs/4.x/getting-started) and [v5](https://reactnavigation.org/docs/5.x/getting-started) <br/>
 
