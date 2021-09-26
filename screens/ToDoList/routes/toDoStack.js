@@ -8,7 +8,6 @@ import * as Notifications from 'expo-notifications';
 import * as Authentication from '../../../api/auth'
 import { Alert, View, Modal} from "react-native";
 import CreateTaskForm from "../screens/createTaskForm";
-import moment from "moment";
 import * as Tasks from '../../../api/tasks';
 
 const screens = {

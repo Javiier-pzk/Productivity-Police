@@ -12,7 +12,6 @@ import {
   Keyboard,
 } from "react-native";
 import { globalStyles } from "../presentational/globalStyles";
-import Card from "../presentational/card";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";

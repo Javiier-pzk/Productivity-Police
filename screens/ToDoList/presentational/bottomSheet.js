@@ -1,18 +1,9 @@
 import React from "react";
 import {
-  Alert,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  FlatList,
-  Modal,
-  Platform,
-  StatusBar,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
 } from "react-native";
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
