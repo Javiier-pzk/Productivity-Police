@@ -70,4 +70,4 @@ React Navigtion [v4](https://reactnavigation.org/docs/4.x/getting-started) and [
 
 
 ## Usage
-Refer to the [detailed features](https://github.com/Javiier-pzk/Productivity-Police/blob/master/docs/README.md) section to find out more about what each feature of Productivity Police is and how they work.
+Refer to the [detailed features](https://github.com/Javiier-pzk/Productivity-Police/blob/master/docs/UserGuide.md) section to find out more about what each feature of Productivity Police is and how they work.
