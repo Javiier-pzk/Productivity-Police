@@ -1,7 +1,7 @@
 # Productivity Police User Guide
 
 ## Authentication and login
-* This is a landing page which will be shown to first-time users on app launch and will allow users to login or sign up via email.
+* This is a landing page which will be shown to first-time users on app launch and will allow you to login or sign up via email.
 
 * You can send yourself a forget password email and reset your password if you forget your password
 
