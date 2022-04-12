@@ -5,7 +5,7 @@
 
 * You can send yourself a forget password email and reset your password if you forget your password
 
-* If you have just created an accoutn, an email verification email will be sent to you for you to verify your account emails
+* If you have just created an account, an email verification email will be sent to you for you to verify your account emails
 
 * If you did not logout of your the app previously, you will not be required to relogin each time you enter the app
 
