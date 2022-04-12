@@ -105,7 +105,7 @@
 
 ![longTermGoalNotes](https://user-images.githubusercontent.com/85099754/162944245-e12181d7-c970-4e41-bd85-9d7a4223cba3.gif)
 
-* Checkpoints and goals complete automatically once the date and time of that checkpoint or goal is reached and you can edit and delete the goal as per other features in the app. Lastly, you can tap into each goal to navigate to the goals details page and tap into each checkpoint to navigate to their checkpoint details page.
+* Checkpoints and goals complete automatically once the date and time of that checkpoint or goal is reached and you can edit and delete the goal as per other features in the app. Lastly, you can tap into each goal to navigate to the goals details page and tap into each checkpoint to navigate to your checkpoint details page.
 
 ![longTermGoalEdit](https://user-images.githubusercontent.com/85099754/162944304-8770b91e-bf7d-412c-9664-4546c8cf0553.gif)
 
