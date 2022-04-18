@@ -1,5 +1,22 @@
 # Productivity Police User Guide
 
+## Features 
+
+Feature list:
+- [x] [Authentication and login](#authentication-and-login)
+- [x] [Home screen and navigation side bar](#home-screen-and-navigation-side-bar)
+- [x] [To do list](#to-do-list)
+- [x] [Focus timer](#focus-timer)
+  - [x] [Standard timer](#standard-timer)
+  - [x] [Pomodoro timer](#pomodoro-timer)  
+- [x] [Sleep](#sleep)
+  - [x] [Daily alarms](#daily-alarms)
+  - [x] [Power naps](#power-naps)  
+- [x] [Goal Setting](#goal-setting)
+  - [x] [Habits](#habits)
+  - [x] [Long term goals](#long-term-goals)
+- [x] [Profile page](#profile-page)
+
 ## Authentication and login
 * This is a landing page which will be shown to first-time users on app launch and will allow you to login or sign up via email.
 
@@ -44,11 +61,12 @@
 
 * The two different features can be accessed by the two different buttons which will take you to a separate screen showing the feature you have chosen. 
 
+### Standard timer
 * In the standard timer feature, you can set duration for the timer using the “Set duration” button, the duration will be shown on the standard timer page under the hours, minutes and seconds circles. When the “Start timer” button is clicked, the timer will begin for whatever time you decide to set. When the timer starts, you can restart the timer or pause/start the timer. The back button will bring you back to the standard timer page.
 
 ![normaltimer](https://user-images.githubusercontent.com/85099754/162946931-7d0fe8bc-e5d4-4b01-9249-23b0f6e9daff.gif)
 
-
+### Pomodoro timer
 * In the pomodoro feature, a level and exp progress bar is shown, where it keeps track of the exp you gained from using the pomodoro study technique. You get 50 EXP for each study cycle, and 100 bonus exp by completing one full pomodoro cycle. At different levels, you unlock a different badge that will be displayed on the main page of the focus timer, namely at level 20, 40, 60, 80 and 100 respectively. 
 
 * You can also set custom pomodoro durations that obey the same cycle order but with different durations. However, only a pomodoro cycle with study time larger than or equal to 25 mins, short break of duration 5 minutes, long break of duration 15 minutes will be eligible for EXP gain. This is to prevent users from abusing the pomodoro cycles and gaining exp quickly. 
@@ -59,10 +77,14 @@
 
 
 ## Sleep
-* This page consists of 2 sub features of the sleep feature, power nap and alarm setting. The alarm setting feature allows you to set daily alarms that wake you up in the morning and reminder notifications that remind yourself to stop procrastinating on sleep and sleep at a certain time you fix.
+* This page consists of 2 sub features of the sleep feature, power nap and alarm setting. 
+
+### Daily alarms
+* The alarm setting feature allows you to set daily alarms that wake you up in the morning and reminder notifications that remind yourself to stop procrastinating on sleep and sleep at a certain time you fix.
 
 ![dailyAlarm](https://user-images.githubusercontent.com/85099754/162948235-b085ffa0-76ca-4b82-96cb-3581f7310339.gif)
 
+### Power naps
 * On the other hand, the nap feature allows you to set quick nap times and snooze when needed. 
 * Both features work similarly, where you are given a set of recommended time/duration for alarms and power naps respectively. You can use the picker to set your own time/duration manually as well. To save such changes, you just have to click the tick button and their new daily alarm timings will be set or they can start their naps. 
 
@@ -71,8 +93,9 @@
 
 * To understand more about the optimal nap timings and sleep schedules, a question mark icon can be clicked at the top of the screen which will open up a pop up view to give you an understanding of what is best for them. 
 
-## Goal Setting
+## Goal setting
 * This feature has 2 sub-features namely habits and long term goals.
+
 ### Habits
 * The habits feature allows you to set recurring goals over intervals of your choice (daily, weekly, monthly). You can create the habit with the + button at the top right hand corner and fill in the necessary details and select the options you want in the form. Your habit will be created if the habit passes the validation criterias in the various fields in the creation form.
 
